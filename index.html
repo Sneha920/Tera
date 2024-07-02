@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Device Redirect</title>
+  <script>
+    function redirectBasedOnDevice() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      // Android detection
+      if (/android/i.test(userAgent)) {
+        var appPackageName = "com.teraplatforms.jobseeker";
+        var appUrl = "market://launch?id=" + appPackageName;
+        var playStoreUrl = "https://play.google.com/store/apps/details?id=" + appPackageName;
+
+        // Attempt to launch the app
+        window.location.href = appUrl;
+
+        // Fallback to Play Store if the app is not launched
+        setTimeout(function() {
+          window.location.href = playStoreUrl;
+        }, 2000); // Adjust the timeout as needed (2 seconds here)
+      }
+      // iOS detection
+      else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        window.location.href = "https://apps.apple.com/in/app/tera-clinician-jobs-more/id1659265164";
+      }
+      // Fallback for other devices
+      else {
+        window.location.href = "https://teraconnects.com/";
+      }
+    }
+  </script>
+</head>
+<body onload="redirectBasedOnDevice()">
+  <p>Redirecting...</p>
+</body>
+</html>
